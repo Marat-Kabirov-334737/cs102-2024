@@ -2,6 +2,8 @@ import random
 import typing as tp
 
 
+"""Модуль определения, является ли число простым"""
+
 def is_prime(n: int) -> bool:
     """
     Tests to see if a number is prime.
@@ -20,6 +22,8 @@ def is_prime(n: int) -> bool:
     return True
 
 
+"""Модуль поиска НОД"""
+
 def gcd(a: int, b: int) -> int:
     """
     Euclid's algorithm for determining the greatest common divisor.
@@ -28,8 +32,9 @@ def gcd(a: int, b: int) -> int:
     >>> gcd(3, 7)
     1
     """
-    # PUT YOUR CODE HERE
-    pass
+    if a == 0:
+        return b
+    return gcd(b % a, a)
 
 
 def multiplicative_inverse(e: int, phi: int) -> int:
