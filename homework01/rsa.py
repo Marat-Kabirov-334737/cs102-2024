@@ -2,8 +2,6 @@ import random
 import typing as tp
 
 
-"""Модуль определения, является ли число простым"""
-
 def is_prime(n: int) -> bool:
     """
     Tests to see if a number is prime.
@@ -16,13 +14,11 @@ def is_prime(n: int) -> bool:
     """
     if n <= 1 or not n % 2 and n != 2:
         return False
-    for divider in range(3, round(n ** 0.5)):
+    for divider in range(3, round(n**0.5)):
         if not n % divider:
             return False
     return True
 
-
-"""Модуль поиска НОД"""
 
 def gcd(a: int, b: int) -> int:
     """
@@ -36,8 +32,6 @@ def gcd(a: int, b: int) -> int:
         return b
     return gcd(b % a, a)
 
-
-"""Модуль расширенного алгоритма Евклида"""
 
 def multiplicative_inverse(e: int, phi: int) -> int:
     """
@@ -59,12 +53,10 @@ def multiplicative_inverse(e: int, phi: int) -> int:
     return num_1
 
 
-"""Модуль генерации ключей"""
-
 def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[int, int]]:
     if not (is_prime(p) and is_prime(q)):
         raise ValueError("Both numbers must be prime.")
-    elif p == q:
+    if p == q:
         raise ValueError("p and q cannot be equal")
 
     # n = pq
@@ -87,10 +79,8 @@ def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[in
 
     # Return public and private keypair
     # Public key is (e, n) and private key is (d, n)
-    return ((e, n), (d, n))
+    return (e, n), (d, n)
 
-
-"""Модуль шифрования"""
 
 def encrypt(pk: tp.Tuple[int, int], plaintext: str) -> tp.List[int]:
     # Unpack the key into it's components
@@ -101,8 +91,6 @@ def encrypt(pk: tp.Tuple[int, int], plaintext: str) -> tp.List[int]:
     # Return the array of bytes
     return cipher
 
-
-"""Модуль расшифровки"""
 
 def decrypt(pk: tp.Tuple[int, int], ciphertext: tp.List[int]) -> str:
     # Unpack the key into its components
