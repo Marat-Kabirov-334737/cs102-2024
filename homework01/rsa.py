@@ -37,6 +37,8 @@ def gcd(a: int, b: int) -> int:
     return gcd(b % a, a)
 
 
+"""Модуль расширенного алгоритма Евклида"""
+
 def multiplicative_inverse(e: int, phi: int) -> int:
     """
     Euclid's extended algorithm for finding the multiplicative
@@ -44,9 +46,20 @@ def multiplicative_inverse(e: int, phi: int) -> int:
     >>> multiplicative_inverse(7, 40)
     23
     """
-    # PUT YOUR CODE HERE
-    pass
+    num_1, num_2 = 0, 1
+    new_phi, new_e = phi, e
+    while new_e:
+        q = new_phi // new_e
+        num_1, num_2 = num_2, num_1 - q * num_2
+        new_phi, new_e = new_e, new_phi - q * new_e
+    if new_phi > 1:
+        return 0
+    if num_1 < 0:
+        num_1 += phi
+    return num_1
 
+
+"""Модуль генерации ключей"""
 
 def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[int, int]]:
     if not (is_prime(p) and is_prime(q)):
@@ -55,10 +68,10 @@ def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[in
         raise ValueError("p and q cannot be equal")
 
     # n = pq
-    # PUT YOUR CODE HERE
+    n = p * q
 
     # phi = (p-1)(q-1)
-    # PUT YOUR CODE HERE
+    phi = (p - 1) * (q - 1)
 
     # Choose an integer e such that e and phi(n) are coprime
     e = random.randrange(1, phi)
@@ -77,6 +90,8 @@ def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[in
     return ((e, n), (d, n))
 
 
+"""Модуль шифрования"""
+
 def encrypt(pk: tp.Tuple[int, int], plaintext: str) -> tp.List[int]:
     # Unpack the key into it's components
     key, n = pk
@@ -86,6 +101,8 @@ def encrypt(pk: tp.Tuple[int, int], plaintext: str) -> tp.List[int]:
     # Return the array of bytes
     return cipher
 
+
+"""Модуль расшифровки"""
 
 def decrypt(pk: tp.Tuple[int, int], ciphertext: tp.List[int]) -> str:
     # Unpack the key into its components
