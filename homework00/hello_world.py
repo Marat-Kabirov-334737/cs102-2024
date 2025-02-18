@@ -1,2 +1,8 @@
+"""Модуль вывода строки Hello, world"""
+
 def text():
-    return message
+    """Вывод нужной строки"""
+    print("Hello, world")
+
+
+text()
